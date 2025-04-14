@@ -1,0 +1,106 @@
+-- lazy.nvimのインストールパスを定義
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+
+-- lazy.nvimが存在しない場合、Gitでクローンしてインストール
+if not vim.loop.fs_stat(lazypath) then
+    vim.fn.system({
+        "git",
+        "clone",
+        "--filter=blob:none",
+        "https://github.com/folke/lazy.nvim.git",
+        lazypath
+    })
+end
+
+-- lazy.nvimをランタイムパスに追加
+vim.opt.rtp:prepend(lazypath)
+
+-- lazy.nvimのプラグインセットアップ
+require("lazy").setup({
+    -- Wakatimeプラグイン: コードの作業時間をトラッキング
+    { "wakatime/vim-wakatime" },
+
+    -- Lightline: シンプルで軽量なステータスライン
+    { "itchyny/lightline.vim" },
+
+    -- 自動括弧補完プラグイン
+    { "windwp/nvim-autopairs" },
+
+    -- TokyoNightカラースキーム
+    { "ghifarit53/tokyonight-vim" },
+
+    -- LSP設定用プラグイン: NeovimでLSP（Language Server Protocol）を使用
+    { "neovim/nvim-lspconfig" },
+
+    -- Mason: LSPサーバーやフォーマッタを管理
+    { "williamboman/mason.nvim", config = true },
+
+    -- Mason LSP設定プラグイン
+    { "williamboman/mason-lspconfig.nvim" },
+
+    -- 補完エンジン: Neovimでの補完をサポート
+    { "hrsh7th/nvim-cmp" },
+
+    -- LSP補完ソース
+    { "hrsh7th/cmp-nvim-lsp" },
+
+    -- LuaSnip: スニペット補完のためのプラグイン
+    { "saadparwaiz1/cmp_luasnip" },
+
+    -- LuaSnip: スニペットエンジン
+    { "L3MON4D3/LuaSnip" },
+
+    -- null-ls: 外部ツールをNeovimに統合してコードフォーマットや診断を行う
+    { "jose-elias-alvarez/null-ls.nvim" },
+
+    -- nvim-dap: Neovim用のデバッガー統合
+    { "mfussenegger/nvim-dap" },
+
+    -- vim-fugitive: Git統合用プラグイン
+    { "tpope/vim-fugitive" },
+
+    -- コメント管理プラグイン: コメントアウトを簡単に操作
+    { "numToStr/Comment.nvim", config = function() require("Comment").setup() end },
+
+    -- 42Tokyoヘッダー生成用プラグイン
+    { "42Paris/42header" },
+
+    -- 42のコードフォーマッタ
+    { "cacharle/c_formatter_42.vim" },
+
+    -- plenary.nvim: Neovim用のユーティリティ関数ライブラリ
+    { "nvim-lua/plenary.nvim" },
+
+    -- lspsaga.nvim: LSPのユーザーインターフェースを改善
+    { "glepnir/lspsaga.nvim", branch = "main", config = function()
+        require("lspsaga").setup({
+          lightbulb = { enable = false }, -- lightbulb（コードアクション）を無効化
+        })
+      end
+    },
+
+    -- treesitter: より高精度なシンタックスハイライトを提供
+    { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" },
+
+    -- NvimTree: ファイルツリーを表示
+    { "nvim-tree/nvim-tree.lua", requires = { "nvim-tree/nvim-web-devicons" } },
+
+    -- NvimTree用のアイコンライブラリ
+    { "nvim-tree/nvim-web-devicons" },
+
+    -- vim-markdown: Markdownファイルのシンタックスハイライト
+    { "preservim/vim-markdown" },
+
+    -- markdown-preview.nvim: Markdownファイルをリアルタイムでプレビュー
+    { "iamcco/markdown-preview.nvim", run = "cd app && npm install" },
+
+    -- vimtex: LaTeX用の強力なプラグイン
+    { "lervag/vimtex" },
+
+    -- vim-pandoc: Pandocを使って、MarkdownとLaTeXの変換をサポート
+    { 'vim-pandoc/vim-pandoc' },
+
+    -- UltiSnips: スニペット管理プラグイン
+    { "SirVer/ultisnips" }
+})
+
