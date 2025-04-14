@@ -5,8 +5,12 @@ local function my_on_attach(bufnr)
     return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
   end
 
+  -- 基本操作
   vim.keymap.set("n", "<CR>", api.node.open.edit, opts("Open"))
   vim.keymap.set("n", "t", api.node.open.tab, opts("Open in New Tab"))
+
+  -- ✅ ファイル・ディレクトリ作成の追加
+  vim.keymap.set("n", "a", api.fs.create, opts("Create"))
 end
 
 require("nvim-tree").setup({

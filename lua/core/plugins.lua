@@ -1,17 +1,6 @@
 -- lazy.nvimのインストールパスを定義
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 
--- lazy.nvimが存在しない場合、Gitでクローンしてインストール
-if not vim.loop.fs_stat(lazypath) then
-    vim.fn.system({
-        "git",
-        "clone",
-        "--filter=blob:none",
-        "https://github.com/folke/lazy.nvim.git",
-        lazypath
-    })
-end
-
 -- lazy.nvimをランタイムパスに追加
 vim.opt.rtp:prepend(lazypath)
 
@@ -101,6 +90,19 @@ require("lazy").setup({
     { 'vim-pandoc/vim-pandoc' },
 
     -- UltiSnips: スニペット管理プラグイン
-    { "SirVer/ultisnips" }
+    { "SirVer/ultisnips" },
+
+	-- orgmode.nvim: Emacs風のorgモードをNeovimで再現
+	{
+	  "nvim-orgmode/orgmode",
+	  dependencies = { "nvim-treesitter/nvim-treesitter" },
+	  event = "VeryLazy",
+	  config = function()
+		require("orgmode").setup({
+		  org_agenda_files = { "~/org/**/*" },
+		  org_default_notes_file = "~/org/refile.org",
+		})
+	  end,
+	},
 })
 
