@@ -46,30 +46,44 @@ require("lazy").setup({
   { "tpope/vim-fugitive" },
 
   -- コメント管理プラグイン: コメントアウトを簡単に操作
-  { "numToStr/Comment.nvim",            config = function() require("Comment").setup() end },
+  {
+    "numToStr/Comment.nvim",
+    config = function() require("plugins.comment").setup() end
+  },
 
   -- plenary.nvim: Neovim用のユーティリティ関数ライブラリ
-  { "nvim-lua/plenary.nvim" },
+  {
+    "nvim-lua/plenary.nvim",
+    event = "VeryLazy",
+  },
 
   -- lspsaga.nvim: LSPのユーザーインターフェースを改善
   {
     "glepnir/lspsaga.nvim",
     branch = "main",
-    config = function()
-      require("lspsaga").setup({
-        lightbulb = { enable = false }, -- lightbulb（コードアクション）を無効化
-      })
-    end
+    config = function() require("plugins.lspsaga").setup() end
   },
 
   -- treesitter: より高精度なシンタックスハイライトを提供
   { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" },
 
-  -- NvimTree: ファイルツリーを表示
-  { "nvim-tree/nvim-tree.lua",         requires = { "nvim-tree/nvim-web-devicons" } },
-
-  -- NvimTree用のアイコンライブラリ
+  -- NvimTree: ファイルツリー
+  {
+    "nvim-tree/nvim-tree.lua",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    config = function() require("plugins.nvim_tree").setup() end
+  },
   { "nvim-tree/nvim-web-devicons" },
+
+  -- mason-null-ls
+  {
+    "jay-babu/mason-null-ls.nvim",
+    dependencies = {
+      "williamboman/mason.nvim",
+      "nvimtools/none-ls.nvim",
+    },
+    config = function() require("plugins.mason_null_ls").setup() end
+  },
 
   -- vim-markdown: Markdownファイルのシンタックスハイライト
   { "preservim/vim-markdown" },
@@ -77,11 +91,10 @@ require("lazy").setup({
   -- markdown-preview.nvim: Markdownファイルをリアルタイムでプレビュー
   {
     "iamcco/markdown-preview.nvim",
+    build = "cd app && yarn install",
     ft = { "markdown", "pandoc" },
-    build = "cd app && npm install",
-    config = function()
-      vim.fn["mkdp#util#install"]()
-      vim.keymap.set("n", "<leader>mp", "<cmd>MarkdownPreviewToggle<CR>", { silent = true, desc = "Markdown プレビュー切替" })
+    init = function()
+      vim.g.mkdp_filetypes = { "markdown", "md", "pandoc" }
     end,
   },
 
@@ -92,41 +105,8 @@ require("lazy").setup({
       require("null-ls").setup({})
     end,
   },
-  {
-    "jay-babu/mason-null-ls.nvim",
-    dependencies = {
-      "williamboman/mason.nvim",
-      "nvimtools/none-ls.nvim",
-    },
-    config = function()
-      require("mason-null-ls").setup({
-        ensure_installed = {
-          "stylua", "black", "prettier", "clang_format", "goimports", "rustfmt", "jq", "yamlfmt"
-        },
-        automatic_installation = true,
-      })
-    end,
-  },
-
-  -- vimtex: LaTeX用の強力なプラグイン
-  { "lervag/vimtex" },
-
-  -- vim-pandoc: Pandocを使って、MarkdownとLaTeXの変換をサポート
-  { 'vim-pandoc/vim-pandoc' },
 
   -- UltiSnips: スニペット管理プラグイン
-  { "SirVer/ultisnips" },
+  { "SirVer/ultisnips" }
 
-  -- orgmode.nvim: Emacs風のorgモードをNeovimで再現
-  {
-    "nvim-orgmode/orgmode",
-    dependencies = { "nvim-treesitter/nvim-treesitter" },
-    event = "VeryLazy",
-    config = function()
-      require("orgmode").setup({
-        org_agenda_files = { "~/org/**/*" },
-        org_default_notes_file = "~/org/refile.org",
-      })
-    end,
-  },
 })

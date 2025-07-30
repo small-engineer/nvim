@@ -18,4 +18,3 @@ utils.load_modules_from_dir(vim.fn.stdpath("config") .. "/lua/core")
 utils.load_modules_from_dir(vim.fn.stdpath("config") .. "/lua/plugins")
 
 utils.load_modules_from_dir(vim.fn.stdpath("config") .. "/lua/lang")
-

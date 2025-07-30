@@ -19,12 +19,9 @@
   "nvim-tree.lua": { "branch": "master", "commit": "65bae449224b8a3bc149471b96587b23b13a9946" },
   "nvim-treesitter": { "branch": "master", "commit": "42fc28ba918343ebfd5565147a42a26580579482" },
   "nvim-web-devicons": { "branch": "master", "commit": "4a8369f4c78ef6f6f895f0cec349e48f74330574" },
-  "orgmode": { "branch": "master", "commit": "468570f42d7b0a402d407a993344e29dcb6f2c8e" },
   "plenary.nvim": { "branch": "master", "commit": "b9fd5226c2f76c951fc8ed5923d85e4de065e509" },
   "tokyonight-vim": { "branch": "master", "commit": "4e82e0f0452a6ce8f387828ec71013015515035a" },
   "ultisnips": { "branch": "master", "commit": "b22a86f9dcc5257624bff3c72d8b902eac468aad" },
   "vim-fugitive": { "branch": "master", "commit": "61b51c09b7c9ce04e821f6cf76ea4f6f903e3cf4" },
-  "vim-markdown": { "branch": "master", "commit": "8f6cb3a6ca4e3b6bcda0730145a0b700f3481b51" },
-  "vim-pandoc": { "branch": "master", "commit": "a9896b7f7c09b7804dd9e200e7b96c18ecb5fa0b" },
-  "vimtex": { "branch": "master", "commit": "7f2633027c8f496a85284de0c11aa32f1e07e049" }
+  "vim-markdown": { "branch": "master", "commit": "8f6cb3a6ca4e3b6bcda0730145a0b700f3481b51" }
 }
